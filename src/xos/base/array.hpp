@@ -25,20 +25,30 @@
 
 namespace xos {
 
-typedef implement_base arrayt_implements;
+typedef implement_base array_implementt_implements;
+///////////////////////////////////////////////////////////////////////
+///  Class: array_implementt
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = array_implementt_implements>
+class _EXPORT_CLASS array_implementt: virtual public TImplements {
+public:
+    typedef TImplements implements;
+};
+typedef array_implementt<> array_implement;
+
+typedef array_implement arrayt_implements;
 typedef base arrayt_extends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: arrayt
 ///////////////////////////////////////////////////////////////////////
 template 
-<typename TWhat = char, typename TSize = size_t, TSize VDefaultSize = 128,
+<typename TWhat = char, size_t VDefaultSize = 128,
  class TImplements = arrayt_implements, class TExtends = arrayt_extends>
 class _EXPORT_CLASS arrayt: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
     typedef TWhat what_t;
-    typedef TSize size_t;
 
     arrayt(const TWhat* elements, size_t length)
     : elements_(sized_elements_), size_(VDefaultSize), length_(0) {
@@ -257,12 +267,11 @@ typedef arrayt_implements char_arrayt_implements;
 ///  Class: char_arrayt
 ///////////////////////////////////////////////////////////////////////
 template
-<typename TChar = char,
+<typename TChar = char, size_t VDefaultSize = 128,
  typename TEnd = TChar, TEnd VEnd = 0,
- typename TSize = size_t, TSize VDefaultSize = 128,
  class TCharTo = to_chart<TChar, char>, 
  class TWCharTo = to_chart<TChar, wchar_t>,
- class TExtends = arrayt<char, TSize, VDefaultSize>,
+ class TExtends = arrayt<char, VDefaultSize>,
  class TImplements = char_arrayt_implements>
 class _EXPORT_CLASS char_arrayt: virtual public TImplements, public TExtends {
 public:
