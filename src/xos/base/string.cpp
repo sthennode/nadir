@@ -13,32 +13,24 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: string.cpp
 ///
 /// Author: $author$
 ///   Date: 4/2/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
-
-#include "xos/lib/version.hpp"
+#include "xos/base/string.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: version
+///  Class: string_implementt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
-public:
-    static const lib::version& which();
-};
 
-} /// namespace nadir
-} /// namespace lib
+///////////////////////////////////////////////////////////////////////
+///  Class: stringt
+///////////////////////////////////////////////////////////////////////
+
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
         
 

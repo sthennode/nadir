@@ -13,32 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: location.hpp
 ///
 /// Author: $author$
-///   Date: 4/2/2018
+///   Date: 4/3/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
+#ifndef _XOS_LOGGER_LOCATION_HPP
+#define _XOS_LOGGER_LOCATION_HPP
 
-#include "xos/lib/version.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
+namespace logger {
 
+typedef implement_base location_implementt_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: version
+///  Class: location_implementt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
+template <class TImplements = location_implementt_implements>
+class _EXPORT_CLASS location_implementt: virtual public TImplements {
 public:
-    static const lib::version& which();
+    typedef TImplements implements;
 };
+typedef location_implementt<> location_implement;
 
-} /// namespace nadir
-} /// namespace lib
+typedef location_implement locationt_implements;
+typedef base locationt_extends;
+///////////////////////////////////////////////////////////////////////
+///  Class: locationt
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = locationt_implements, class TExtends = locationt_extends>
+class _EXPORT_CLASS locationt: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+
+    locationt(const locationt &copy) {
+    }
+    locationt() {
+    }
+    virtual ~locationt() {
+    }
+};
+typedef locationt<> location;
+
+} /// namespace logger
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
+#endif /// _XOS_LOGGER_LOCATION_HPP 
         
 

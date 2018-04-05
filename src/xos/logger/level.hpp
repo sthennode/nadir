@@ -13,32 +13,22 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: level.hpp
 ///
 /// Author: $author$
-///   Date: 4/2/2018
+///   Date: 4/3/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
+#ifndef _XOS_LOGGER_LEVEL_HPP
+#define _XOS_LOGGER_LEVEL_HPP
 
-#include "xos/lib/version.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
+namespace logger {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: version
-///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
-public:
-    static const lib::version& which();
-};
-
-} /// namespace nadir
-} /// namespace lib
+} /// namespace logger
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
+#endif /// _XOS_LOGGER_LEVEL_HPP 
         
 

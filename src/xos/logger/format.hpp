@@ -13,32 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: format.hpp
 ///
 /// Author: $author$
-///   Date: 4/2/2018
+///   Date: 4/3/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
+#ifndef _XOS_LOGGER_FORMAT_HPP
+#define _XOS_LOGGER_FORMAT_HPP
 
-#include "xos/lib/version.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
+namespace logger {
 
+typedef implement_base format_implementt_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: version
+///  Class: format_implementt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
+template <class TImplements = format_implementt_implements>
+class _EXPORT_CLASS format_implementt: virtual public TImplements {
 public:
-    static const lib::version& which();
+    typedef TImplements implements;
 };
+typedef format_implementt<> format_implement;
 
-} /// namespace nadir
-} /// namespace lib
+typedef format_implement formatt_implements;
+typedef base formatt_extends;
+///////////////////////////////////////////////////////////////////////
+///  Class: formatt
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = formatt_implements, class TExtends = formatt_extends>
+class _EXPORT_CLASS formatt: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+
+    formatt(const formatt &copy) {
+    }
+    formatt() {
+    }
+    virtual ~formatt() {
+    }
+};
+typedef formatt<> format;
+
+} /// namespace logger
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
+#endif /// _XOS_LOGGER_FORMAT_HPP 
         
 

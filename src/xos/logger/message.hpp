@@ -13,32 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: message.hpp
 ///
 /// Author: $author$
-///   Date: 4/2/2018
+///   Date: 4/3/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
+#ifndef _XOS_LOGGER_MESSAGE_HPP
+#define _XOS_LOGGER_MESSAGE_HPP
 
-#include "xos/lib/version.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
+namespace logger {
 
+typedef implement_base message_implementt_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: version
+///  Class: message_implementt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
+template <class TImplements = message_implementt_implements>
+class _EXPORT_CLASS message_implementt: virtual public TImplements {
 public:
-    static const lib::version& which();
+    typedef TImplements implements;
 };
+typedef message_implementt<> message_implement;
 
-} /// namespace nadir
-} /// namespace lib
+typedef message_implement messaget_implements;
+typedef base messaget_extends;
+///////////////////////////////////////////////////////////////////////
+///  Class: messaget
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = messaget_implements, class TExtends = messaget_extends>
+class _EXPORT_CLASS messaget: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+
+    messaget(const messaget &copy) {
+    }
+    messaget() {
+    }
+    virtual ~messaget() {
+    }
+};
+typedef messaget<> message;
+
+} /// namespace logger
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
+#endif /// _XOS_LOGGER_MESSAGE_HPP 
         
 

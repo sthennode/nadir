@@ -37,30 +37,21 @@ public:
 typedef chars_implementt<> chars_implement;
 
 typedef chars_implement charst_implements;
-typedef base charst_extends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: charst
 ///////////////////////////////////////////////////////////////////////
 template 
 <typename TChar = char,
  typename TEndChar = TChar, TEndChar VEndChar = 0,
- class TImplements = charst_implements, class TExtends = charst_extends>
-class _EXPORT_CLASS charst: virtual public TImplements, public TExtends {
+ class TImplements = charst_implements>
+class _EXPORT_CLASS charst: virtual public TImplements {
 public:
     typedef TImplements implements;
-    typedef TExtends extends;
     typedef charst derives;
     typedef TChar char_t;
     typedef TEndChar end_char_t;
     enum { end_char = VEndChar };
     typedef char_t (*to_case_t)(char_t what);
-
-    charst(const charst &copy) {
-    }
-    charst() {
-    }
-    virtual ~charst() {
-    }
 
     static char_t* copy
     (char_t* toWhat, const char_t* what) {
@@ -346,5 +337,3 @@ typedef charst<word_t> words_t;
 } /// namespace xos
 
 #endif /// _XOS_BASE_CHARS_HPP 
-        
-

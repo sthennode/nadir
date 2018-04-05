@@ -13,32 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: input.hpp
 ///
 /// Author: $author$
-///   Date: 4/2/2018
+///   Date: 4/5/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_LIB_NADIR_VERSION_HPP
-#define _XOS_LIB_NADIR_VERSION_HPP
+#ifndef _XOS_CONSOLE_INPUT_HPP
+#define _XOS_CONSOLE_INPUT_HPP
 
-#include "xos/lib/version.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace lib {
-namespace nadir {
+namespace console {
 
+typedef input inputt_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: version
+///  Class: inputt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS version {
+template <class TImplements = inputt_implements>
+class _EXPORT_CLASS inputt: virtual public TImplements {
 public:
-    static const lib::version& which();
+    typedef TImplements implements;
 };
+typedef inputt<> input;
 
-} /// namespace nadir
-} /// namespace lib
+typedef input inputt_implements;
+typedef input_extend inputt_extends;
+///////////////////////////////////////////////////////////////////////
+///  Class: inputt
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = inputt_implements, class TExtends = inputt_extends>
+class _EXPORT_CLASS inputt: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+
+    inputt(const inputt &copy) {
+    }
+    inputt() {
+    }
+    virtual ~inputt() {
+    }
+};
+typedef inputt<> input;
+
+} /// namespace console
 } /// namespace xos
 
-#endif /// _XOS_LIB_NADIR_VERSION_HPP 
+#endif /// _XOS_CONSOLE_INPUT_HPP 
         
 
