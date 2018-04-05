@@ -58,6 +58,23 @@ libnadir_HEADERS += \
 $${NADIR_SRC}/xos/base/to_char.hpp \
 $${NADIR_SRC}/xos/base/chars.hpp \
 $${NADIR_SRC}/xos/base/array.hpp \
+$${NADIR_SRC}/xos/base/string_base.hpp \
+$${NADIR_SRC}/xos/base/string.hpp \
+$${NADIR_SRC}/xos/base/to_string.hpp \
+$${NADIR_SRC}/xos/base/exception.hpp \
+$${NADIR_SRC}/xos/base/attached.hpp \
+$${NADIR_SRC}/xos/base/created.hpp \
+$${NADIR_SRC}/xos/base/opened.hpp \
+$${NADIR_SRC}/xos/logger/level.hpp \
+$${NADIR_SRC}/xos/logger/function.hpp \
+$${NADIR_SRC}/xos/logger/location.hpp \
+$${NADIR_SRC}/xos/logger/format.hpp \
+$${NADIR_SRC}/xos/logger/message.hpp \
+$${NADIR_SRC}/xos/logger/output.hpp \
+$${NADIR_SRC}/xos/logger/interface.hpp \
+$${NADIR_SRC}/xos/io/logger.hpp \
+$${NADIR_SRC}/xos/lib/version.hpp \
+$${NADIR_SRC}/xos/lib/nadir/version.hpp \
 
 # libnadir SOURCES
 #
@@ -65,6 +82,14 @@ libnadir_SOURCES += \
 $${NADIR_SRC}/xos/base/to_char.cpp \
 $${NADIR_SRC}/xos/base/chars.cpp \
 $${NADIR_SRC}/xos/base/array.cpp \
+$${NADIR_SRC}/xos/base/string_base.cpp \
+$${NADIR_SRC}/xos/base/string.cpp \
+$${NADIR_SRC}/xos/base/to_string.cpp \
+$${NADIR_SRC}/xos/base/exception.cpp \
+$${NADIR_SRC}/xos/base/attached.cpp \
+$${NADIR_SRC}/xos/base/created.cpp \
+$${NADIR_SRC}/xos/base/opened.cpp \
+$${NADIR_SRC}/xos/lib/nadir/version.cpp \
 
 ########################################################################
 
