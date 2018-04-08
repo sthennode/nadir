@@ -21,12 +21,12 @@
 #ifndef _XOS_CONSOLE_OUTPUT_HPP
 #define _XOS_CONSOLE_OUTPUT_HPP
 
-#include "xos/base/string.hpp"
+#include "xos/base/locked.hpp"
 
 namespace xos {
 namespace console {
 
-typedef implement_base output_baset_implements;
+typedef unlocked output_baset_implements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: output_baset
 ///////////////////////////////////////////////////////////////////////
@@ -48,13 +48,6 @@ public:
     enum { end_char = VEndChar };
 
 protected:
-    virtual ssize_t outfv(file_t f, const char_t* format, va_list va) const {
-        ssize_t count = 0;
-        if ((f != ((file_t)null_file)) && (format)) {
-            /*count = ::vfprintf(f, format, va);*/
-        }
-        return count;
-    }
     virtual ssize_t outlv(file_t f, const char_t* out, va_list va) const {
         ssize_t count = 0;
         ssize_t amount = 0;
@@ -83,17 +76,7 @@ protected:
     }
     virtual ssize_t outln(file_t f) const {
         const char_t ln = ((char_t)'\n');
-        ssize_t count = out(f, &ln, 1);
-        return count;
-    }
-    virtual ssize_t out(file_t f, const char_t* out, size_t size, size_t length) const {
-        ssize_t count = 0;
-        if ((out) && (size) && (length) && (f != ((file_t)null_file))) {
-            ssize_t amount = 0;
-            if (0 < (amount /*= ::fwrite(out, sizeof(char_t), length, f)*/)) {
-                count += amount;
-            }
-        }
+        ssize_t count = this->out(f, &ln, 1);
         return count;
     }
     virtual ssize_t out(file_t f, const char_t* out, ssize_t length) const {
@@ -120,6 +103,23 @@ protected:
         ssize_t count = this->out(f, out, -1);
         return count;
     }
+    virtual ssize_t out(file_t f, const char_t* out, size_t size, size_t length) const {
+        ssize_t count = 0;
+        if ((out) && (size) && (length) && (f != ((file_t)null_file))) {
+            ssize_t amount = 0;
+            if (0 < (amount /*= ::fwrite(out, sizeof(char_t), length, f)*/)) {
+                count += amount;
+            }
+        }
+        return count;
+    }
+    virtual ssize_t outfv(file_t f, const char_t* format, va_list va) const {
+        ssize_t count = 0;
+        if ((f != ((file_t)null_file)) && (format)) {
+            /*count = ::vfprintf(f, format, va);*/
+        }
+        return count;
+    }
     virtual ssize_t out_flush(file_t f) const {
         ssize_t count = 0;
         if ((f != ((file_t)null_file))) {
@@ -133,7 +133,7 @@ protected:
 };
 typedef output_baset<> output_base;
 
-typedef output_base outputt_implements;
+typedef output_base::implements outputt_implements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: outputt
 ///////////////////////////////////////////////////////////////////////
@@ -201,7 +201,7 @@ protected:
     using implements::out;
     using implements::out_flush;
     virtual ssize_t outfv(const char_t* format, va_list va) {
-        ssize_t count = outfv(this->out_std_out(), format, va);
+        ssize_t count = this->outfv(this->out_std_out(), format, va);
         return count;
     }
     virtual ssize_t outlv(const char_t* out, va_list va) {
@@ -224,6 +224,10 @@ protected:
         ssize_t count = this->out(this->out_std_out(), out, length);
         return count;
     }
+    virtual ssize_t out(const char_t* out) {
+        ssize_t count = this->out(this->out_std_out(), out, -1);
+        return count;
+    }
     virtual ssize_t out_flush() {
         ssize_t count = this->out_flush(this->out_std_out());
         return count;
@@ -232,21 +236,8 @@ protected:
     virtual file_t out_std_out() {
         return this->std_out();
     }
-    virtual file_t out_std_err() {
-        return this->std_err();
-    }
-    virtual file_t in_std_in() {
-        return this->std_in();
-    }
-
     virtual file_t std_out() const {
         return ((file_t)null_file);/*::stdout;*/
-    }
-    virtual file_t std_err() const {
-        return ((file_t)null_file);/*::stderr;*/
-    }
-    virtual file_t std_in() const {
-        return ((file_t)null_file);/*::stdin;*/
     }
 };
 typedef outputt<char> output;

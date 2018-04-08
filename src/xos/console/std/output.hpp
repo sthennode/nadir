@@ -43,6 +43,8 @@ public:
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
 protected:
+    using implements::out;
+    using implements::out_flush;
     virtual ssize_t out(file_t f, const char_t* out, size_t size, size_t length) const {
         ssize_t count = 0;
         if ((out) && (size) && (length) && (f != ((file_t)null_file))) {
@@ -68,8 +70,11 @@ protected:
     }
 };
 
-class _EXPORT_CLASS output: virtual public outputt<> {
+typedef outputt<> output_implements;
+class _EXPORT_CLASS output: virtual public output_implements {
 protected:
+    typedef output_implements implements;
+    using implements::outfv;
     virtual ssize_t outfv(file_t f, const char_t* format, va_list va) {
         ssize_t count = 0;
         if ((f != ((file_t)null_file)) && (format)) {

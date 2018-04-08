@@ -26,7 +26,7 @@
 namespace xos {
 namespace console {
 
-typedef output_base errort_implements;
+typedef output_base::implements errort_implements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: errort
 ///////////////////////////////////////////////////////////////////////
@@ -88,13 +88,8 @@ public:
     }
 
 protected:
-    using implements::outfv;
-    using implements::outlv;
-    using implements::outln;
-    using implements::out;
-    using implements::out_flush;
     virtual ssize_t errfv(const char_t* format, va_list va) {
-        ssize_t count = outfv(this->out_std_err(), format, va);
+        ssize_t count = this->outfv(this->out_std_err(), format, va);
         return count;
     }
     virtual ssize_t errlv(const char_t* out, va_list va) {
@@ -125,7 +120,6 @@ protected:
     virtual file_t out_std_err() {
         return this->std_err();
     }
-
     virtual file_t std_err() const {
         return ((file_t)null_file);/*::stderr;*/
     }

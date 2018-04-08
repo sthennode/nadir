@@ -35,6 +35,7 @@ template <class TImplements = errort_implements>
 class _EXPORT_CLASS errort: virtual public TImplements {
 public:
     typedef TImplements implements;
+
     typedef typename implements::string_t string_t;
     typedef typename implements::file_t file_t;
     typedef typename implements::null_file_t null_file_t;
@@ -42,6 +43,7 @@ public:
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
+
 protected:
     virtual ssize_t err(file_t f, const char_t* out, size_t size, size_t length) const {
         ssize_t count = 0;
@@ -68,7 +70,8 @@ protected:
     }
 };
 
-class _EXPORT_CLASS error: virtual public errort<> {
+typedef errort<> error_implements;
+class _EXPORT_CLASS error: virtual public error_implements {
 protected:
     virtual ssize_t errfv(file_t f, const char_t* format, va_list va) {
         ssize_t count = 0;

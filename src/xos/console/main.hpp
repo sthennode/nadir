@@ -21,28 +21,21 @@
 #ifndef _XOS_CONSOLE_MAIN_HPP
 #define _XOS_CONSOLE_MAIN_HPP
 
-#include "xos/console/std/output.hpp"
-#include "xos/console/std/error.hpp"
+#include "xos/console/std/io.hpp"
 
 namespace xos {
 namespace console {
 
-typedef std::output main_implementt_out_implements;
-typedef std::error main_implementt_err_implements;
-typedef implement_base main_implementt_in_implements;
+typedef std::io main_implementt_implements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: main_implementt
 ///////////////////////////////////////////////////////////////////////
 template 
-<class TOutImplements = main_implementt_out_implements,
- class TErrImplements = main_implementt_err_implements,
- class TInImplements = main_implementt_in_implements>
-class _EXPORT_CLASS main_implementt
-: virtual public TOutImplements, 
-  virtual public TErrImplements, 
-  virtual public TInImplements {
+<class TImplements = main_implementt_implements>
+class _EXPORT_CLASS main_implementt: virtual public TImplements {
 public:
-    typedef TOutImplements implements;
+    typedef TImplements implements;
+
     typedef typename implements::string_t string_t;
     typedef typename implements::file_t file_t;
     typedef typename implements::null_file_t null_file_t;
@@ -50,6 +43,8 @@ public:
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
+
+protected:
 };
 typedef main_implementt<> main_implement;
 
@@ -73,26 +68,26 @@ public:
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
 
-    maint() {
-        maint*& the_main = derives::the_main();
+    maint(): did_run_(false), did_usage_(false) {
+        derives*& the_main = derives::the_main();
         if (!(the_main)) {
             the_main = this;
         }
     }
     virtual ~maint() {
-        maint*& the_main = derives::the_main();
+        derives*& the_main = derives::the_main();
         if ((the_main) && (this == the_main)) {
             the_main = 0;
         }
     }
 private:
-    maint(const maint &copy) {
+    maint(const maint &copy): did_run_(false), did_usage_(false) {
     }
 
 public:
     static int the_main(int argc, char_t** argv, char_t** env) {
         int err = 1;
-        maint* the_main = 0;
+        derives* the_main = 0;
         if ((the_main = derives::the_main())) {
             if (!(err = the_main->before(argc, argv, env))) {
                 int err2 = 0;
@@ -103,6 +98,11 @@ public:
             }
         }
         return err;
+    }
+protected:
+    static derives*& the_main() {
+        static derives* the_main = 0;
+        return the_main;
     }
     
 protected:
@@ -118,31 +118,83 @@ protected:
         int err = 0;
         return err;
     }
+    virtual bool set_did_run(bool to = true) {
+        did_run_ = to;
+        return did_run_;
+    }
+    virtual bool did_run() const {
+        return did_run_;
+    }
 
+    virtual int usage(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        this->set_did_usage();
+        return err;
+    }
+    virtual bool set_did_usage(bool to = true) {
+        did_run_ = did_usage_ = to;
+        return did_usage_;
+    }
+    virtual bool did_usage() const {
+        return did_usage_;
+    }
+
+    virtual int get_arguments(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_get_arguments(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_get_arguments(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_argument
+    (const char_t* arg, int argind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual int missing_argument(const char_t* arg) {
+        int err = 1;
+        return err;
+    }
+    virtual const char_t* arguments(const char_t**& args) const {
+        args = 0;
+        return 0;
+    }
+    
     virtual int operator()(int argc, char_t** argv, char_t** env) {
         int err = 0;
-        if (!(err = this->before_run(argc, argv, env))) {
-            int err2 = 0;
-            err = this->run(argc, argv, env);
-            if ((err2 = this->after_run(argc, argv, env))) {
-                if (!err) err = err2;
+        if (!(this->did_run())) {
+            if (!(err = this->before_run(argc, argv, env))) {
+                int err2 = 0;
+                err = this->run(argc, argv, env);
+                if ((err2 = this->after_run(argc, argv, env))) {
+                    if (!err) err = err2;
+                }
             }
         }
         return err;
     }
     virtual int before(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        if (!(err = this->before_get_arguments(argc, argv, env))) {
+            int err2 = 0;
+            err = this->get_arguments(argc, argv, env);
+            if ((err2 = this->after_get_arguments(argc, argv, env))) {
+                if (!err) err = err2;
+            }
+        }
         return err;
     }
     virtual int after(int argc, char_t** argv, char_t** env) {
         int err = 0;
         return err;
     }
-
-    static maint*& the_main() {
-        static maint* the_main = 0;
-        return the_main;
-    }
+protected:
+    bool did_run_, did_usage_;
 };
 typedef maint<> main;
 

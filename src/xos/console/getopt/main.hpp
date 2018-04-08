@@ -13,28 +13,30 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: input.hpp
+///   File: main.hpp
 ///
 /// Author: $author$
-///   Date: 4/5/2018
+///   Date: 4/7/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_STD_INPUT_HPP
-#define _XOS_CONSOLE_STD_INPUT_HPP
+#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
+#define _XOS_CONSOLE_GETOPT_MAIN_HPP
 
-#include "xos/console/input.hpp"
+#include "xos/console/getopt/main_opt.hpp"
 
 namespace xos {
 namespace console {
-namespace std {
+namespace getopt {
 
-typedef console::input inputt_implements;
+typedef main_opt::implements maint_implements;
+typedef main_opt maint_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: inputt
+///  Class: maint
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = inputt_implements>
-class _EXPORT_CLASS inputt: virtual public TImplements {
+template <class TImplements = maint_implements, class TExtends = maint_extends>
+class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
+    typedef TExtends extends;
     typedef typename implements::string_t string_t;
     typedef typename implements::file_t file_t;
     typedef typename implements::null_file_t null_file_t;
@@ -42,52 +44,21 @@ public:
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
-protected:
-    using implements::in;
-    using implements::in_fill;
-    virtual ssize_t in(file_t f, char_t* in, size_t size, size_t space) const {
-        ssize_t count = 0;
-        if ((in) && (size) && (space) && (f != ((file_t)null_file))) {
-            ssize_t amount = 0;
-            if (0 < (amount = ::fread(in, size, space, f))) {
-                count += amount;
-            }
-        }
-        return count;
-    }
-    virtual ssize_t in_fill(file_t f) const {
-        ssize_t count = 0;
-        if ((f != ((file_t)null_file))) {
-            int err = 0;
-            if ((err)) {
-                count = -1;
-            }
-        }
-        return count;
-    }
-    virtual file_t std_in() const {
-        return ::stdin;
-    }
-};
 
-typedef inputt<> input_implements;
-class _EXPORT_CLASS input: virtual public input_implements {
-protected:
-    typedef input_implements implements;
-    using implements::infv;
-    virtual ssize_t infv(file_t f, const char_t* format, va_list va) const {
-        ssize_t count = 0;
-        if ((f != ((file_t)null_file)) && (format)) {
-            count = ::vfscanf(f, format, va);
-        }
-        return count;
+    maint() {
     }
+    virtual ~maint() {
+    }
+private:
+    maint(const maint &copy) {
+    }
+    
+protected:
 };
+typedef maint<> main;
 
-} /// namespace std
+} /// namespace getopt
 } /// namespace console
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_STD_INPUT_HPP 
-        
-
+#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 

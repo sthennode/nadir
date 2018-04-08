@@ -21,7 +21,7 @@
 #ifndef _XOS_APP_CONSOLE_NADIR_MAIN_HPP
 #define _XOS_APP_CONSOLE_NADIR_MAIN_HPP
 
-#include "xos/console/main.hpp"
+#include "xos/console/getopt/main.hpp"
 #include "xos/lib/nadir/version.hpp"
 
 namespace xos {
@@ -29,19 +29,8 @@ namespace app {
 namespace console {
 namespace nadir {
 
-typedef xos::console::main::implements main_implementt_implements;
-///////////////////////////////////////////////////////////////////////
-///  Class: main_implementt
-///////////////////////////////////////////////////////////////////////
-template <class TImplements = main_implementt_implements>
-class _EXPORT_CLASS main_implementt: virtual public TImplements {
-public:
-    typedef TImplements implements;
-};
-typedef main_implementt<> main_implement;
-
-typedef main_implement maint_implements;
-typedef xos::console::main maint_extends;
+typedef xos::console::getopt::main::implements maint_implements;
+typedef xos::console::getopt::main maint_extends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: maint
 ///////////////////////////////////////////////////////////////////////
@@ -72,7 +61,7 @@ protected:
         int err = 0;
         const lib::version& which_version = lib::nadir::version::which();
         const string_t version = which_version.to_string();
-        this->errlln("library version = ", version.chars(), NULL);
+        this->outlln("library version = ", version.chars(), NULL);
         return err;
     }
 };
