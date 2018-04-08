@@ -53,20 +53,31 @@ $${nadir_DEFINES} \
 # nadir_exe HEADERS
 #
 nadir_exe_HEADERS += \
+$${NADIR_SRC}/xos/base/locked.hpp \
 $${NADIR_SRC}/xos/console/output.hpp \
 $${NADIR_SRC}/xos/console/std/output.hpp \
 $${NADIR_SRC}/xos/console/error.hpp \
 $${NADIR_SRC}/xos/console/std/error.hpp \
+$${NADIR_SRC}/xos/console/input.hpp \
+$${NADIR_SRC}/xos/console/std/input.hpp \
+$${NADIR_SRC}/xos/console/io.hpp \
+$${NADIR_SRC}/xos/console/std/io.hpp \
 $${NADIR_SRC}/xos/console/main.hpp \
 $${NADIR_SRC}/xos/console/main_main.hpp \
+$${NADIR_SRC}/xos/console/getopt/main_opt.hpp \
+$${NADIR_SRC}/xos/console/getopt/main.hpp \
 $${NADIR_SRC}/xos/app/console/nadir/main.hpp \
 
 # nadir_exe SOURCES
 #
 nadir_exe_SOURCES += \
-$${NADIR_SRC}/xos/console/output.cpp \
-$${NADIR_SRC}/xos/console/error.cpp \
+$${NADIR_SRC}/xos/base/locked.cpp \
+$${NADIR_SRC}/xos/console/std/output.cpp \
+$${NADIR_SRC}/xos/console/std/error.cpp \
+$${NADIR_SRC}/xos/console/std/input.cpp \
+$${NADIR_SRC}/xos/console/std/io.cpp \
 $${NADIR_SRC}/xos/console/main_main.cpp \
+$${NADIR_SRC}/xos/console/getopt/main_opt.cpp \
 $${NADIR_SRC}/xos/app/console/nadir/main.cpp \
 
 ########################################################################
