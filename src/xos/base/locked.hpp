@@ -22,11 +22,11 @@
 #define _XOS_BASE_LOCKED_HPP
 
 #include "xos/base/exception.hpp"
-#include "xos/io/logger.hpp"
 
 namespace xos {
 
-enum lock_status {
+typedef int lock_status;
+enum {
     unlock_success,
     lock_success = unlock_success,
 
@@ -63,10 +63,10 @@ inline const TString lock_status_to_string(lock_status status) {
 ///  Class: lock_exceptiont
 ///////////////////////////////////////////////////////////////////////
 template 
-<typename TStatus = exception_status,
+<typename TStatus = lock_status,
  typename TChar = char, class TString = char_stringt<TChar>,
- class TImplements = exception_implementt
- <TStatus, TChar, TString>, class TExtends = exception>
+ class TImplements = exception_implementt<TStatus, TChar, TString>, 
+ class TExtends = exceptiont<TStatus, TChar, TString, TImplements> >
 class _EXPORT_CLASS lock_exceptiont: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
@@ -83,7 +83,7 @@ public:
     }
 
     virtual string_t status_to_string() const {
-        return lock_status_to_string(this->status());
+        return lock_status_to_string<string_t>(this->status());
     }
 };
 typedef lock_exceptiont<> lock_exception;

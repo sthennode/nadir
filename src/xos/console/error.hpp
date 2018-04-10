@@ -87,7 +87,6 @@ public:
         return count;
     }
 
-protected:
     virtual ssize_t errfv(const char_t* format, va_list va) {
         ssize_t count = this->outfv(this->out_std_err(), format, va);
         return count;
@@ -112,11 +111,16 @@ protected:
         ssize_t count = this->out(this->out_std_err(), out, length);
         return count;
     }
+    virtual ssize_t err(const char_t* out) {
+        ssize_t count = this->out(this->out_std_err(), out);
+        return count;
+    }
     virtual ssize_t err_flush() {
         ssize_t count = this->out_flush(this->out_std_err());
         return count;
     }
 
+protected:
     virtual file_t out_std_err() {
         return this->std_err();
     }
