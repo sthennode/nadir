@@ -63,6 +63,51 @@ public:
 };
 typedef iot<> io;
 
+namespace derived {
+
+typedef std::io iot_implements;
+typedef base iot_extends;
+///////////////////////////////////////////////////////////////////////
+///  Class: iot
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = iot_implements, class TExtends = iot_extends>
+class _EXPORT_CLASS iot: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+
+    iot(locked& _locked): locked_(_locked) {
+    }
+    virtual ~iot() {
+    }
+private:
+    iot(const iot &copy) {
+    }
+    
+protected:
+    virtual bool lock() { 
+        return locked_.lock(); 
+    }
+    virtual lock_status try_lock() { 
+        return locked_.try_lock(); 
+    }
+    virtual lock_status untimed_lock() { 
+        return locked_.untimed_lock(); 
+    }
+    virtual lock_status timed_lock(mseconds_t milliseconds) { 
+        return locked_.timed_lock(milliseconds); 
+    }
+    virtual bool unlock() { 
+        return locked_.unlock(); 
+    }
+
+protected:
+    locked& locked_;
+};
+typedef iot<> io;
+
+} /// namespace derived
+
 } /// namespace std
 } /// namespace console
 } /// namespace xos
