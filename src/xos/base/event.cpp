@@ -13,20 +13,13 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main_opt.cpp
+///   File: event.cpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/27/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/base/event.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
 
-} /// namespace getopt
-} /// namespace console
 } /// namespace xos
-
-        
-

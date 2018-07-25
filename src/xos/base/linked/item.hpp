@@ -13,54 +13,60 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: item.hpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 6/12/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
-#define _XOS_CONSOLE_GETOPT_MAIN_HPP
+#ifndef _XOS_BASE_LINKED_ITEM_HPP
+#define _XOS_BASE_LINKED_ITEM_HPP
 
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
+namespace linked {
 
-typedef main_opt::implements maint_implements;
-typedef main_opt maint_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: maint
+///  Class: itemt
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = maint_implements, class TExtends = maint_extends>
-class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
+template
+<class TDerives, class TImplements = implement_base, class TExtends = base>
+
+class _EXPORT_CLASS itemt: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
+    typedef TDerives derives;
 
-    typedef typename implements::file_t file_t;
-    typedef typename implements::null_file_t null_file_t;
-    enum { null_file = implements::null_file};
-    
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
+    itemt(derives* prev, derives* next) : prev_(prev), next_(next) {
+    }
+    itemt(const itemt& copy) : prev_(0), next_(0) {
+    }
+    itemt() : prev_(0), next_(0) {
+    }
+    virtual ~itemt() {
+    }
 
-    maint() {
+    virtual derives* set_prev(derives* to) {
+        prev_ = to;
+        return prev_;
     }
-    virtual ~maint() {
+    virtual derives* prev() const {
+        return prev_;
     }
-private:
-    maint(const maint &copy) {
+    virtual derives* set_next(derives* to) {
+        next_ = to;
+        return next_;
     }
-    
+    virtual derives* next() const {
+        return next_;
+    }
+
 protected:
+    derives *prev_, *next_;
 };
-typedef maint<> main;
 
-} /// namespace getopt
-} /// namespace console
+} /// namespace linked
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 
+#endif /// _XOS_BASE_LINKED_ITEM_HPP 

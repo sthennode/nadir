@@ -13,54 +13,47 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: stream.hpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/2/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
-#define _XOS_CONSOLE_GETOPT_MAIN_HPP
+#ifndef _XOS_IO_STREAM_HPP
+#define _XOS_IO_STREAM_HPP
 
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/io/reader.hpp"
+#include "xos/io/writer.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
+namespace io {
 
-typedef main_opt::implements maint_implements;
-typedef main_opt maint_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: maint
+///  Class: streamt
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = maint_implements, class TExtends = maint_extends>
-class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
+template 
+<class TReaderImplements = reader, class TWriterImplements = writer>
+
+class _EXPORT_CLASS streamt
+: virtual public TReaderImplements, virtual public TWriterImplements {
 public:
-    typedef TImplements implements;
-    typedef TExtends extends;
+    typedef TWriterImplements implements;
 
-    typedef typename implements::file_t file_t;
-    typedef typename implements::null_file_t null_file_t;
-    enum { null_file = implements::null_file};
-    
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
+    typedef typename implements::what_t what_t;
+    typedef typename implements::sized_t sized_t;
+    typedef typename implements::endof_t endof_t;
+    static const endof_t endof = implements::endof;
 
-    maint() {
-    }
-    virtual ~maint() {
-    }
-private:
-    maint(const maint &copy) {
-    }
-    
-protected:
 };
-typedef maint<> main;
+typedef streamt<reader, writer> stream;
 
-} /// namespace getopt
-} /// namespace console
+typedef streamt<char_reader, char_writer> char_stream;
+typedef streamt<tchar_reader, tchar_writer> tchar_stream;
+typedef streamt<wchar_reader, wchar_writer> wchar_stream;
+
+typedef streamt<byte_reader, byte_writer> byte_stream;
+typedef streamt<word_reader, word_writer> word_stream;
+
+} /// namespace io
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 
+#endif /// _XOS_IO_STREAM_HPP 

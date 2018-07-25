@@ -13,20 +13,25 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main_opt.cpp
+///   File: event.hpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/27/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/getopt/main_opt.hpp"
+#ifndef _XOS_BASE_EVENT_HPP
+#define _XOS_BASE_EVENT_HPP
+
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
 
-} /// namespace getopt
-} /// namespace console
+typedef int event_handled_status;
+enum {
+    event_unhandled = 0,
+    event_handled_success,
+    event_handled_failed
+};
+
 } /// namespace xos
 
-        
-
+#endif /// _XOS_BASE_EVENT_HPP 

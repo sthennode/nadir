@@ -13,20 +13,21 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main_opt.cpp
+///   File: reader.cpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 7/4/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/io/crt/file/reader.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
+namespace io {
+namespace crt {
+namespace file {
 
-} /// namespace getopt
-} /// namespace console
+
+} /// namespace file
+} /// namespace crt
+} /// namespace io
 } /// namespace xos
-
-        
 

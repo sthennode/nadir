@@ -13,54 +13,24 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: output_stream.cpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/21/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
-#define _XOS_CONSOLE_GETOPT_MAIN_HPP
-
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/console/output_stream.hpp"
 
 namespace xos {
 namespace console {
-namespace getopt {
 
-typedef main_opt::implements maint_implements;
-typedef main_opt maint_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: maint
+///  Class: output_stream_implementt
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = maint_implements, class TExtends = maint_extends>
-class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
-public:
-    typedef TImplements implements;
-    typedef TExtends extends;
 
-    typedef typename implements::file_t file_t;
-    typedef typename implements::null_file_t null_file_t;
-    enum { null_file = implements::null_file};
-    
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
+///////////////////////////////////////////////////////////////////////
+///  Class: output_streamt
+///////////////////////////////////////////////////////////////////////
 
-    maint() {
-    }
-    virtual ~maint() {
-    }
-private:
-    maint(const maint &copy) {
-    }
-    
-protected:
-};
-typedef maint<> main;
-
-} /// namespace getopt
 } /// namespace console
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 

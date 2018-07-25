@@ -13,54 +13,59 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: output_stream.hpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/21/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
-#define _XOS_CONSOLE_GETOPT_MAIN_HPP
+#ifndef _XOS_CONSOLE_OUTPUT_STREAM_HPP
+#define _XOS_CONSOLE_OUTPUT_STREAM_HPP
 
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/console/io.hpp"
+#include "xos/io/stream.hpp"
 
 namespace xos {
 namespace console {
-namespace getopt {
 
-typedef main_opt::implements maint_implements;
-typedef main_opt maint_extends;
+typedef xos::console::io output_streamt_io;
+typedef xos::io::char_stream output_streamt_implements;
+typedef base output_streamt_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: maint
+///  Class: output_streamt
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = maint_implements, class TExtends = maint_extends>
-class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
+template 
+<class TIo = output_streamt_io, 
+ class TImplements = output_streamt_implements, class TExtends = output_streamt_extends>
+
+class _EXPORT_CLASS output_streamt: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
 
-    typedef typename implements::file_t file_t;
-    typedef typename implements::null_file_t null_file_t;
-    enum { null_file = implements::null_file};
+    typedef TIo io_t;
+    typedef implements stream_t;
+    typedef typename stream_t::what_t what_t;
+    typedef typename stream_t::sized_t sized_t;
     
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
+    output_streamt(const output_streamt &copy): io_(copy.io_) {
+    }
+    output_streamt(io_t& io): io_(io) {
+    }
+    virtual ~output_streamt() {
+    }
 
-    maint() {
-    }
-    virtual ~maint() {
-    }
-private:
-    maint(const maint &copy) {
-    }
-    
+    virtual ssize_t write(const what_t* what, size_t size) {
+        ssize_t count = 0;
+        count = io_.out((const sized_t*)what, size);
+        return count;
+    }    
+
 protected:
+    io_t& io_;
 };
-typedef maint<> main;
+typedef output_streamt<> output_stream;
 
-} /// namespace getopt
 } /// namespace console
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 
+#endif /// _XOS_CONSOLE_OUTPUT_STREAM_HPP 

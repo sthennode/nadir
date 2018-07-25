@@ -43,6 +43,7 @@ public:
     typedef TFile file_t;
     typedef TNullFile null_file_t;
     enum { null_file = VNullFile };
+
     typedef TChar char_t;
     typedef TEndChar end_char_t;
     enum { end_char = VEndChar };
@@ -194,7 +195,6 @@ public:
         return count;
     }
 
-protected:
     using implements::outfv;
     using implements::outlv;
     using implements::outln;
@@ -233,6 +233,7 @@ protected:
         return count;
     }
 
+protected:
     virtual file_t out_std_out() {
         return this->std_out();
     }

@@ -13,54 +13,47 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: sequence.hpp
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 5/19/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_GETOPT_MAIN_HPP
-#define _XOS_CONSOLE_GETOPT_MAIN_HPP
+#ifndef _XOS_IO_SEQUENCE_HPP
+#define _XOS_IO_SEQUENCE_HPP
 
-#include "xos/console/getopt/main_opt.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace console {
-namespace getopt {
+namespace io {
 
-typedef main_opt::implements maint_implements;
-typedef main_opt maint_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: maint
+///  Class: sequencet
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = maint_implements, class TExtends = maint_extends>
-class _EXPORT_CLASS maint: virtual public TImplements, public TExtends {
+template 
+<typename TWhat = char, typename TSized = TWhat,
+ typename TEndof = TSized, TEndof VEndof = 0,
+ class TImplements = implement_base>
+
+class _EXPORT_CLASS sequencet: virtual public TImplements {
 public:
     typedef TImplements implements;
-    typedef TExtends extends;
-
-    typedef typename implements::file_t file_t;
-    typedef typename implements::null_file_t null_file_t;
-    enum { null_file = implements::null_file};
     
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
-
-    maint() {
-    }
-    virtual ~maint() {
-    }
-private:
-    maint(const maint &copy) {
-    }
+    typedef TWhat what_t;
+    typedef TSized sized_t;
+    typedef TEndof endof_t;
+    static const endof_t endof = VEndof;
     
-protected:
 };
-typedef maint<> main;
+typedef sequencet<void, char> sequence;
 
-} /// namespace getopt
-} /// namespace console
+typedef sequencet<char, char> char_sequence;
+typedef sequencet<tchar_t, tchar_t> tchar_sequence;
+typedef sequencet<wchar_t, wchar_t> wchar_sequence;
+
+typedef sequencet<byte_t, byte_t> byte_sequence;
+typedef sequencet<word_t, word_t> word_sequence;
+
+} /// namespace io
 } /// namespace xos
 
-#endif /// _XOS_CONSOLE_GETOPT_MAIN_HPP 
+#endif /// _XOS_IO_SEQUENCE_HPP 

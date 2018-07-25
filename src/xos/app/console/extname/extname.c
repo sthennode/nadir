@@ -1,3 +1,4 @@
+/*/
 ///////////////////////////////////////////////////////////////////////
 /// Copyright (c) 1988-2018 $organization$
 ///
@@ -13,20 +14,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main_opt.cpp
+///   File: extname.c
 ///
 /// Author: $author$
-///   Date: 4/7/2018
+///   Date: 7/23/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/getopt/main_opt.hpp"
+/*/
+#include <stdio.h>
+#include <string.h>
 
-namespace xos {
-namespace console {
-namespace getopt {
-
-} /// namespace getopt
-} /// namespace console
-} /// namespace xos
-
-        
-
+int main(int argc, char** argv, char** env) {
+    int err = 0;
+    const char* arg = 0;
+    if ((1 <= argc) && (argv) && (arg = argv[1]) && (arg[0])) {
+        if ((arg = strrchr(arg, '.')) && (arg[0])) {
+            printf("%s\n", arg+1);
+        }
+    } else {
+        const char* exename = "extname";
+        if ((0 < argc) && (argv) && (arg = argv[0]) && (arg[0])) {
+            exename = arg;
+            if ((arg = strrchr(arg, '/')) && (arg[0])) {
+                exename = arg+1;
+            }
+        }
+        printf("usage %s path\n", exename);
+    }
+    return err;
+}
