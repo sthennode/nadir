@@ -13,41 +13,42 @@
 // or otherwise) arising in any way out of the use of this software, 
 // even if advised of the possibility of such damage.
 //
-//   File: main.cpp
+//   File: interface.hpp
 //
 // Author: $author$
-//   Date: 7/31/2018
+//   Date: 8/7/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/main/main.hpp"
-#include "xos/console/std/io.hpp"
-#include "xos/console/logger.hpp"
+#ifndef _XOS_CONSOLE_STD_INTERFACE_HPP
+#define _XOS_CONSOLE_STD_INTERFACE_HPP
+
+#include "xos/console/interface.hpp"
 
 namespace xos {
 namespace console {
-namespace main {
+namespace std {
 
-} // namespace main
+///////////////////////////////////////////////////////////////////////
+//  Class: interfacet
+///////////////////////////////////////////////////////////////////////
+template <class Timplements = console::interface>
+class _EXPORT_CLASS interfacet: virtual public Timplements {
+public:
+    typedef Timplements implements;
+    
+    typedef typename implements::file_t file_t;
+    typedef typename implements::null_file_t null_file_t;
+    enum { null_file = implements::null_file };
+    
+    typedef typename implements::char_t char_t;
+    typedef typename implements::end_char_t end_char_t;
+    enum { end_char = implements::end_char };
+    
+}; // class _EXPORT_CLASS interfacet
+
+typedef interfacet<> interface;
+
+} // namespace std
 } // namespace console
 } // namespace xos
 
-///////////////////////////////////////////////////////////////////////
-// Function: main
-///////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv, char** env) {
-    int err = 0;
-    ERR_LOG_DEBUG("try {...");
-    try {
-        ::xos::unlocked locked;
-        ::xos::console::std::io io(locked);
-        ::xos::console::logger logger(io);
-
-        LOG_DEBUG("::xos::console::main::interface::main(argc, argv, env)...")
-        err = ::xos::console::main::interface::main(argc, argv, env);
-        LOG_DEBUG("...err = " << err << " on ::xos::console::main::interface::main(argc, argv, env)")
-    } catch (...) {
-        ERR_LOG_ERROR("...catch (...)");
-        return 1;
-    }
-    ERR_LOG_DEBUG("...} try");
-    return err;
-}
+#endif // _XOS_CONSOLE_STD_INTERFACE_HPP 

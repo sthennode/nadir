@@ -13,41 +13,30 @@
 // or otherwise) arising in any way out of the use of this software, 
 // even if advised of the possibility of such damage.
 //
-//   File: main.cpp
+//   File: version.hpp
 //
 // Author: $author$
-//   Date: 7/31/2018
+//   Date: 8/8/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/main/main.hpp"
-#include "xos/console/std/io.hpp"
-#include "xos/console/logger.hpp"
+#ifndef _XOS_LIB_NADIR_VERSION_HPP
+#define _XOS_LIB_NADIR_VERSION_HPP
+
+#include "xos/lib/version.hpp"
 
 namespace xos {
-namespace console {
-namespace main {
+namespace lib {
+namespace nadir {
 
-} // namespace main
-} // namespace console
+///////////////////////////////////////////////////////////////////////
+//  Class: version
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS version {
+public:
+    static const lib::version& which();
+};
+
+} // namespace nadir
+} // namespace lib
 } // namespace xos
 
-///////////////////////////////////////////////////////////////////////
-// Function: main
-///////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv, char** env) {
-    int err = 0;
-    ERR_LOG_DEBUG("try {...");
-    try {
-        ::xos::unlocked locked;
-        ::xos::console::std::io io(locked);
-        ::xos::console::logger logger(io);
-
-        LOG_DEBUG("::xos::console::main::interface::main(argc, argv, env)...")
-        err = ::xos::console::main::interface::main(argc, argv, env);
-        LOG_DEBUG("...err = " << err << " on ::xos::console::main::interface::main(argc, argv, env)")
-    } catch (...) {
-        ERR_LOG_ERROR("...catch (...)");
-        return 1;
-    }
-    ERR_LOG_DEBUG("...} try");
-    return err;
-}
+#endif // _XOS_LIB_NADIR_VERSION_HPP 

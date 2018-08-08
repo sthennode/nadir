@@ -13,31 +13,28 @@
 // or otherwise) arising in any way out of the use of this software, 
 // even if advised of the possibility of such damage.
 //
-//   File: io.hpp
+//   File: implement.hpp
 //
 // Author: $author$
-//   Date: 8/6/2018
+//   Date: 8/7/2018
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_STD_IO_HPP
-#define _XOS_CONSOLE_STD_IO_HPP
+#ifndef _XOS_CONSOLE_STD_IMPLEMENT_HPP
+#define _XOS_CONSOLE_STD_IMPLEMENT_HPP
 
-#include "xos/console/std/implement.hpp"
+#include "xos/console/implement.hpp"
 
 namespace xos {
 namespace console {
 namespace std {
 
 ///////////////////////////////////////////////////////////////////////
-//  Class: iot
+//  Class: implementt
 ///////////////////////////////////////////////////////////////////////
-template 
-<class Timplements = console::std::implement, class Textends = extend>
-
-class _EXPORT_CLASS iot: virtual public Timplements, public Textends {
+template <class Timplements = console::implement>
+class _EXPORT_CLASS implementt: virtual public Timplements {
 public:
     typedef Timplements implements;
-    typedef Textends extends;
-
+    
     typedef typename implements::file_t file_t;
     typedef typename implements::null_file_t null_file_t;
     enum { null_file = implements::null_file };
@@ -45,15 +42,8 @@ public:
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;
     enum { end_char = implements::end_char };
-
-    iot(locked& _locked): locked_(_locked) {
-    }
-    iot(): locked_((locked&)*this) {
-    }
-    virtual ~iot() {
-    }
-    
-/*protected:
+        
+protected:
     using implements::in;
     virtual ssize_t in(file_t f, char_t* in, size_t size, size_t space) const {
         ssize_t count = 0;
@@ -67,9 +57,9 @@ public:
     }
     virtual file_t std_in() const {
         return ::stdin;
-    }*/
+    }
     
-/*protected:
+protected:
     using implements::out_implements::out;
     using implements::out_implements::out_flush;
     virtual ssize_t out(file_t f, const char_t* out, size_t size, size_t length) const {
@@ -94,9 +84,9 @@ public:
     }
     virtual file_t std_out() const {
         return ::stdout;
-    }*/
+    }
     
-/*protected:
+protected:
     using implements::err;
     using implements::err_flush;
     virtual ssize_t err(file_t f, const char_t* out, size_t size, size_t length) const {
@@ -121,26 +111,18 @@ public:
     }
     virtual file_t std_err() const {
         return ::stderr;
-    }*/
+    }
+}; // class _EXPORT_CLASS implementt
+
+typedef implementt<> implement_implements;
+///////////////////////////////////////////////////////////////////////
+//  Class: implement
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS implement: virtual public implement_implements {
+public:
+    typedef implement_implements implements;
     
 protected:
-    locked& locked_;
-}; // class _EXPORT_CLASS iot
-
-typedef iot<> io_extends;
-///////////////////////////////////////////////////////////////////////
-//  Class: io
-///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS io: public io_extends {
-public:
-    typedef io_extends extends;
-
-    io(locked& _locked): extends(_locked) {
-    }
-    io() {
-    }
-    
-/*protected:
     using in_implements::infv;
     virtual ssize_t infv(file_t f, const char_t* format, va_list va) const {
         ssize_t count = 0;
@@ -151,9 +133,9 @@ public:
             }
         }
         return count;
-    }*/
+    }
     
-/*protected:
+protected:
     using out_implements::outfv;
     virtual ssize_t outfv(file_t f, const char_t* format, va_list va) const {
         ssize_t count = 0;
@@ -164,11 +146,11 @@ public:
             }
         }
         return count;
-    }*/
+    }
 };
 
 } // namespace std
 } // namespace console
 } // namespace xos
 
-#endif // _XOS_CONSOLE_STD_IO_HPP 
+#endif // _XOS_CONSOLE_STD_IMPLEMENT_HPP 

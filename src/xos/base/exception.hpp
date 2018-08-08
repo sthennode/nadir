@@ -72,7 +72,7 @@ public:
 ///  Class: extendt
 ///////////////////////////////////////////////////////////////////////
 template 
-<typename Tstatus,
+<typename Tstatus = status,
  class Timplements = implementt<Tstatus>, 
  class Textends = extend>
 
@@ -98,6 +98,8 @@ public:
 protected:
     status_t status_;
 };
+
+typedef extendt<> base;
 
 } // namespace exception
 } // namespace xos

@@ -13,41 +13,52 @@
 // or otherwise) arising in any way out of the use of this software, 
 // even if advised of the possibility of such damage.
 //
-//   File: main.cpp
+//   File: main.hpp
 //
 // Author: $author$
-//   Date: 7/31/2018
+//   Date: 8/7/2018
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/main/main.hpp"
-#include "xos/console/std/io.hpp"
-#include "xos/console/logger.hpp"
+#ifndef _XOS_APP_CONSOLE_NADIR_MAIN_HPP
+#define _XOS_APP_CONSOLE_NADIR_MAIN_HPP
+
+#include "xos/console/main/extend.hpp"
+#include "xos/logger/interface.hpp"
 
 namespace xos {
+namespace app {
 namespace console {
-namespace main {
+namespace nadir {
 
-} // namespace main
+///////////////////////////////////////////////////////////////////////
+//  Class: main
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS main
+: virtual public xos::console::main::implement, public xos::console::main::extend {
+public:
+    typedef xos::console::main::implement implements;
+    typedef xos::console::main::extend extends;
+
+    main() {
+    }
+    virtual ~main() {
+    }
+private:
+    main(const main& copy) {
+        LOG_ERROR("...unexpected throw (exception::base(exception::failed))...");
+        throw (exception::base(exception::failed));
+    }
+    
+protected:
+    virtual int run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        outlln("hello", NULL);
+        return err;
+    }
+}; // class _EXPORT_CLASS main
+
+} // namespace nadir
 } // namespace console
+} // namespace app
 } // namespace xos
 
-///////////////////////////////////////////////////////////////////////
-// Function: main
-///////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv, char** env) {
-    int err = 0;
-    ERR_LOG_DEBUG("try {...");
-    try {
-        ::xos::unlocked locked;
-        ::xos::console::std::io io(locked);
-        ::xos::console::logger logger(io);
-
-        LOG_DEBUG("::xos::console::main::interface::main(argc, argv, env)...")
-        err = ::xos::console::main::interface::main(argc, argv, env);
-        LOG_DEBUG("...err = " << err << " on ::xos::console::main::interface::main(argc, argv, env)")
-    } catch (...) {
-        ERR_LOG_ERROR("...catch (...)");
-        return 1;
-    }
-    ERR_LOG_DEBUG("...} try");
-    return err;
-}
+#endif // _XOS_APP_CONSOLE_NADIR_MAIN_HPP 
