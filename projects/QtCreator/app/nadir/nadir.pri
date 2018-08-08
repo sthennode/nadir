@@ -70,9 +70,17 @@ $${NADIR_SRC}/xos/console/out/implement.hpp \
 $${NADIR_SRC}/xos/console/err/implement.hpp \
 $${NADIR_SRC}/xos/console/implement.hpp \
 $${NADIR_SRC}/xos/console/extend.hpp \
+$${NADIR_SRC}/xos/console/std/interface.hpp \
+$${NADIR_SRC}/xos/console/std/implement.hpp \
 $${NADIR_SRC}/xos/console/std/io.hpp \
 $${NADIR_SRC}/xos/console/io.hpp \
+$${NADIR_SRC}/xos/console/main/interface.hpp \
+$${NADIR_SRC}/xos/console/main/implement.hpp \
+$${NADIR_SRC}/xos/console/main/extend.hpp \
 $${NADIR_SRC}/xos/console/main/main.hpp \
+$${NADIR_SRC}/xos/lib/version.hpp \
+$${NADIR_SRC}/xos/lib/nadir/version.hpp \
+$${NADIR_SRC}/xos/app/console/nadir/main.hpp \
 
 # nadir_exe SOURCES
 #
@@ -85,7 +93,8 @@ $${NADIR_SRC}/xos/console/interface.cpp \
 $${NADIR_SRC}/xos/console/implement.cpp \
 $${NADIR_SRC}/xos/console/extend.cpp \
 $${NADIR_SRC}/xos/console/io.cpp \
-$${NADIR_SRC}/xos/console/main/main.cpp \
+$${NADIR_SRC}/xos/lib/nadir/version.cpp \
+$${NADIR_SRC}/xos/app/console/nadir/main.cpp \
 
 ########################################################################
 # nadir_exe FRAMEWORKS
