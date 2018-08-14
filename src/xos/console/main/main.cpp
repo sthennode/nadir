@@ -21,6 +21,7 @@
 #include "xos/console/main/main.hpp"
 #include "xos/console/std/io.hpp"
 #include "xos/console/logger.hpp"
+#include "xos/mt/os/mutex.hpp"
 
 namespace xos {
 namespace console {
@@ -37,7 +38,7 @@ int main(int argc, char** argv, char** env) {
     int err = 0;
     ERR_LOG_DEBUG("try {...");
     try {
-        ::xos::unlocked locked;
+        ::xos::mt::os::mutex locked(false);
         ::xos::console::std::io io(locked);
         ::xos::console::logger logger(io);
 

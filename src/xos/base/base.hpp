@@ -62,22 +62,36 @@ public:
     }
 }; // class _EXPORT_CLASS extend
 
-///////////////////////////////////////////////////////////////////////
-//  Class: derive
-///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS derive: virtual public implement, public extend {
-public:
-    typedef implement implements;
-    typedef extend extends;
-
-    derive() {
-    }
-    virtual ~derive() {
-    }
-}; // class _EXPORT_CLASS derive
-
 typedef implement implement_base;
-typedef derive base;
+typedef extend base;
+
+//
+// to_ pointer / unsigned / signed / wchar / tchar / char / bool
+// 
+inline const pointer_t& to_pointer(const pointer_t& v) { return v; }
+inline const unsigned& to_unsigned(const unsigned& v) { return v; }
+inline const signed& to_signed(const signed& v) { return v; }
+inline const wchar_t& to_wchar(const wchar_t& v) { return v; }
+inline const tchar_t& to_tchar(const tchar_t& v) { return v; }
+inline const char& to_char(const char& v) { return v; }
+inline const word_t& to_word(const word_t& v) { return v; }
+inline const byte_t& to_byte(const byte_t& v) { return v; }
+inline const bool& to_bool(const bool& v) { return v; }
+
+//
+// mseconds_ seconds / mseconds / useconds / nseconds
+// 
+inline seconds_t mseconds_seconds
+(mseconds_t mseconds) { return mseconds / 1000; }
+
+inline mseconds_t mseconds_mseconds
+(mseconds_t mseconds) { return mseconds % 1000; }
+
+inline useconds_t mseconds_useconds
+(mseconds_t mseconds) { return mseconds_mseconds(mseconds) * 1000; }
+
+inline nseconds_t mseconds_nseconds
+(mseconds_t mseconds) { return mseconds_useconds(mseconds) * 1000; }
 
 } // namespace xos
 

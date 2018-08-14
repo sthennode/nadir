@@ -53,6 +53,37 @@ public:
     virtual ~iot() {
     }
     
+    virtual bool lock() { 
+        if (((locked*)this) != &locked_) {
+            return locked_.lock();
+        }
+        return false; 
+    }
+    virtual lock_status try_lock() { 
+        if (((locked*)this) != &locked_) {
+            return locked_.try_lock();
+        }
+        return lock_failed; 
+    }
+    virtual lock_status untimed_lock() { 
+        if (((locked*)this) != &locked_) {
+            return locked_.untimed_lock();
+        }
+        return lock_failed; 
+    }
+    virtual lock_status timed_lock(mseconds_t milliseconds) { 
+        if (((locked*)this) != &locked_) {
+            return locked_.timed_lock(milliseconds);
+        }
+        return lock_failed; 
+    }
+    virtual bool unlock() { 
+        if (((locked*)this) != &locked_) {
+            return locked_.unlock();
+        }
+        return false; 
+    }
+
 /*protected:
     using implements::in;
     virtual ssize_t in(file_t f, char_t* in, size_t size, size_t space) const {
