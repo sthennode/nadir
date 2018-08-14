@@ -40,11 +40,49 @@ build_rostra_DEFINES += \
 build_rostra_LIBS += \
 
 ########################################################################
+# crono
+#
+# pkg-config --cflags --libs crono
+#
+
+# build crono INCLUDEPATH
+#
+build_crono_INCLUDEPATH += \
+
+# build crono DEFINES
+#
+build_crono_DEFINES += \
+
+# build crono LIBS
+#
+build_crono_LIBS += \
+
+########################################################################
+# fila
+#
+# pkg-config --cflags --libs fila
+#
+
+# build fila INCLUDEPATH
+#
+build_fila_INCLUDEPATH += \
+
+# build fila DEFINES
+#
+build_fila_DEFINES += \
+
+# build fila LIBS
+#
+build_fila_LIBS += \
+
+########################################################################
 # nadir
 
 # build nadir INCLUDEPATH
 #
 build_nadir_INCLUDEPATH += \
+$${build_fila_INCLUDEPATH} \
+$${build_crono_INCLUDEPATH} \
 $${build_rostra_INCLUDEPATH} \
 
 
@@ -52,11 +90,15 @@ $${build_rostra_INCLUDEPATH} \
 #
 build_nadir_DEFINES += \
 $${build_rostra_DEFINES} \
+$${build_crono_DEFINES} \
+$${build_fila_DEFINES} \
 
 
 # build nadir LIBS
 #
 build_nadir_LIBS += \
+$${build_fila_LIBS} \
+$${build_crono_LIBS} \
 $${build_rostra_LIBS} \
 
 

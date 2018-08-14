@@ -54,6 +54,50 @@ rostra_LIBS += \
 -l$${ROSTRA_NAME} \
 
 ########################################################################
+# crono
+CRONO_THIRDPARTY_PKG_MAKE_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_OS}/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PRJ_MAKE_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_OS}/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PKG_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PRJ_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+CRONO_PKG_BLD = $${OTHER_BLD}/$${CRONO_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+CRONO_PRJ_BLD = $${OTHER_BLD}/$${CRONO_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+#CRONO_LIB = $${CRONO_THIRDPARTY_PKG_MAKE_BLD}/lib
+#CRONO_LIB = $${CRONO_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#CRONO_LIB = $${CRONO_THIRDPARTY_PKG_BLD}/lib
+#CRONO_LIB = $${CRONO_THIRDPARTY_PRJ_BLD}/lib
+CRONO_LIB = $${CRONO_PKG_BLD}/lib
+#CRONO_LIB = $${CRONO_PRJ_BLD}/lib
+#CRONO_LIB = $${NADIR_LIB}
+
+# crono LIBS
+#
+crono_LIBS += \
+-L$${CRONO_LIB}/lib$${CRONO_NAME} \
+-l$${CRONO_NAME} \
+
+########################################################################
+# fila
+FILA_THIRDPARTY_PKG_MAKE_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_OS}/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PRJ_MAKE_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PKG_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PRJ_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+FILA_PKG_BLD = $${OTHER_BLD}/$${FILA_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+FILA_PRJ_BLD = $${OTHER_BLD}/$${FILA_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+#FILA_LIB = $${FILA_THIRDPARTY_PKG_MAKE_BLD}/lib
+#FILA_LIB = $${FILA_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#FILA_LIB = $${FILA_THIRDPARTY_PKG_BLD}/lib
+#FILA_LIB = $${FILA_THIRDPARTY_PRJ_BLD}/lib
+#FILA_LIB = $${FILA_PKG_BLD}/lib
+FILA_LIB = $${FILA_PRJ_BLD}/lib
+#FILA_LIB = $${NADIR_LIB}
+
+# fila LIBS
+#
+fila_LIBS += \
+-L$${FILA_LIB}/lib$${FILA_NAME} \
+-l$${FILA_NAME} \
+
+########################################################################
 # nadir
 
 # nadir INCLUDEPATH
@@ -71,6 +115,10 @@ $${rostra_LIBS} \
 $${build_nadir_LIBS} \
 -lpthread \
 -ldl \
+
+_nadir_LIBS += \
+$${fila_LIBS} \
+$${crono_LIBS} \
 
 contains(NADIR_OS,linux) {
 nadir_LIBS += \
