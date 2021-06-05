@@ -37,6 +37,8 @@ $${nadir_INCLUDEPATH} \
 #
 nadir_exe_DEFINES += \
 $${nadir_DEFINES} \
+DEFAULT_LOGGING_LEVELS_ERROR \
+XOS_APP_CONSOLE_NADIR_MAIN_INSTANCE \
 
 ########################################################################
 # nadir_exe OBJECTIVE_HEADERS
@@ -60,6 +62,7 @@ $${NADIR_SRC}/xos/base/attached.hpp \
 $${NADIR_SRC}/xos/base/created.hpp \
 $${NADIR_SRC}/xos/base/logged.hpp \
 $${NADIR_SRC}/xos/base/locked.hpp \
+$${NADIR_SRC}/xos/base/acquired.hpp \
 $${NADIR_SRC}/xos/console/file/interface.hpp \
 $${NADIR_SRC}/xos/console/file/in/implement.hpp \
 $${NADIR_SRC}/xos/console/file/out/implement.hpp \
@@ -95,6 +98,7 @@ $${NADIR_SRC}/xos/base/attached.cpp \
 $${NADIR_SRC}/xos/base/created.cpp \
 $${NADIR_SRC}/xos/base/logged.cpp \
 $${NADIR_SRC}/xos/base/locked.cpp \
+$${NADIR_SRC}/xos/base/acquired.cpp \
 $${NADIR_SRC}/xos/console/io.cpp \
 $${NADIR_SRC}/xos/lib/nadir/version.cpp \
 $${NADIR_SRC}/xos/app/console/nadir/main.cpp \
@@ -111,14 +115,19 @@ $${FILA_SRC}/xos/mt/posix/timed.hpp \
 $${FILA_SRC}/xos/mt/posix/mutex.hpp \
 $${FILA_SRC}/xos/mt/apple/osx/mutex.hpp \
 $${FILA_SRC}/xos/mt/os/mutex.hpp \
+$${FILA_SRC}/xos/mt/semaphore/interface.hpp \
+$${FILA_SRC}/xos/mt/semaphore/implement.hpp \
+$${FILA_SRC}/xos/mt/semaphore/extend.hpp \
+$${FILA_SRC}/xos/mt/apple/mach/semaphore.hpp \
 
 # nadir_exe SOURCES
 #
 nadir_exe_SOURCES += \
 $${FILA_SRC}/xos/mt/os/os.cpp \
-$${FILA_SRC}/xos/mt/mutex/interface.cpp \
-$${FILA_SRC}/xos/mt/mutex/implement.cpp \
-$${FILA_SRC}/xos/mt/mutex/extend.cpp \
+$${FILA_SRC}/xos/mt/semaphore/interface.cpp \
+$${FILA_SRC}/xos/mt/semaphore/implement.cpp \
+$${FILA_SRC}/xos/mt/semaphore/extend.cpp \
+$${FILA_SRC}/xos/mt/apple/mach/semaphore.cpp \
 $${FILA_SRC}/xos/mt/posix/timed.cpp \
 $${FILA_SRC}/xos/mt/os/mutex.cpp \
 

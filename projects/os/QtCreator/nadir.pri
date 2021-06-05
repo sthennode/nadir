@@ -16,29 +16,56 @@
 #   File: nadir.pri
 #
 # Author: $author$
-#   Date: 7/30/2018
+#   Date: 7/30/2018, 6/4/2021
 #
-# Os QtCreator .pri file for nadir
+# Os specific QtCreator .pri file for nadir
 ########################################################################
 UNAME = $$system(uname)
 
 contains(UNAME,Darwin) {
 NADIR_OS = macosx
 } else {
+contains(UNAME,Linux) {
 NADIR_OS = linux
-}
+} else {
+NADIR_OS = windows
+} # contains(UNAME,Linux)
+} # contains(UNAME,Darwin)
 
-#CONFIG += c++11
-#CONFIG += c++0x
+contains(BUILD_OS,NADIR_OS) {
+NADIR_BUILD = $${NADIR_OS}
+} else {
+NADIR_BUILD = $${BUILD_OS}
+} # contains(BUILD_OS,NADIR_OS)
+
+contains(BUILD_CPP_VERSION,10) {
+CONFIG += c++0x
+} else {
+contains(BUILD_CPP_VERSION,98|03|11|14|17) {
+CONFIG += c++$${BUILD_CPP_VERSION}
+} else {
+} # contains(BUILD_CPP_VERSION,98|03|11|14|17)
+} # contains(BUILD_CPP_VERSION,10)
+
+contains(NADIR_OS,macosx) {
+} else {
+contains(NADIR_OS,linux) {
+QMAKE_CXXFLAGS += -fpermissive
+} else {
+contains(NADIR_OS,windows) {
+} else {
+} # contains(NADIR_OS,windows)
+} # contains(NADIR_OS,linux)
+} # contains(NADIR_OS,macosx)
 
 ########################################################################
 # rostra
-ROSTRA_THIRDPARTY_PKG_MAKE_BLD = $${ROSTRA_THIRDPARTY_PKG}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-ROSTRA_THIRDPARTY_PRJ_MAKE_BLD = $${ROSTRA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-ROSTRA_THIRDPARTY_PKG_BLD = $${ROSTRA_THIRDPARTY_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-ROSTRA_THIRDPARTY_PRJ_BLD = $${ROSTRA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-ROSTRA_PKG_BLD = $${OTHER_BLD}/$${ROSTRA_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-ROSTRA_PRJ_BLD = $${OTHER_BLD}/$${ROSTRA_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+ROSTRA_THIRDPARTY_PKG_MAKE_BLD = $${ROSTRA_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+ROSTRA_THIRDPARTY_PRJ_MAKE_BLD = $${ROSTRA_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+ROSTRA_THIRDPARTY_PKG_BLD = $${ROSTRA_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+ROSTRA_THIRDPARTY_PRJ_BLD = $${ROSTRA_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+ROSTRA_PKG_BLD = $${OTHER_BLD}/$${ROSTRA_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+ROSTRA_PRJ_BLD = $${OTHER_BLD}/$${ROSTRA_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
 #ROSTRA_LIB = $${ROSTRA_THIRDPARTY_PKG_MAKE_BLD}/lib
 #ROSTRA_LIB = $${ROSTRA_THIRDPARTY_PRJ_MAKE_BLD}/lib
 #ROSTRA_LIB = $${ROSTRA_THIRDPARTY_PKG_BLD}/lib
@@ -55,12 +82,12 @@ rostra_LIBS += \
 
 ########################################################################
 # crono
-CRONO_THIRDPARTY_PKG_MAKE_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-CRONO_THIRDPARTY_PRJ_MAKE_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-CRONO_THIRDPARTY_PKG_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-CRONO_THIRDPARTY_PRJ_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-CRONO_PKG_BLD = $${OTHER_BLD}/$${CRONO_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-CRONO_PRJ_BLD = $${OTHER_BLD}/$${CRONO_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PKG_MAKE_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PRJ_MAKE_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PKG_BLD = $${CRONO_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+CRONO_THIRDPARTY_PRJ_BLD = $${CRONO_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+CRONO_PKG_BLD = $${OTHER_BLD}/$${CRONO_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+CRONO_PRJ_BLD = $${OTHER_BLD}/$${CRONO_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
 #CRONO_LIB = $${CRONO_THIRDPARTY_PKG_MAKE_BLD}/lib
 #CRONO_LIB = $${CRONO_THIRDPARTY_PRJ_MAKE_BLD}/lib
 #CRONO_LIB = $${CRONO_THIRDPARTY_PKG_BLD}/lib
@@ -77,12 +104,12 @@ crono_LIBS += \
 
 ########################################################################
 # fila
-FILA_THIRDPARTY_PKG_MAKE_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-FILA_THIRDPARTY_PRJ_MAKE_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/$${BUILD_CONFIG}
-FILA_THIRDPARTY_PKG_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-FILA_THIRDPARTY_PRJ_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-FILA_PKG_BLD = $${OTHER_BLD}/$${FILA_PKG}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
-FILA_PRJ_BLD = $${OTHER_BLD}/$${FILA_PRJ}/build/$${NADIR_OS}/QtCreator/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PKG_MAKE_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PRJ_MAKE_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PKG_BLD = $${FILA_THIRDPARTY_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+FILA_THIRDPARTY_PRJ_BLD = $${FILA_THIRDPARTY_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+FILA_PKG_BLD = $${OTHER_BLD}/$${FILA_PKG}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
+FILA_PRJ_BLD = $${OTHER_BLD}/$${FILA_PRJ}/build/$${NADIR_BUILD}/QtCreator/$${BUILD_CONFIG}
 #FILA_LIB = $${FILA_THIRDPARTY_PKG_MAKE_BLD}/lib
 #FILA_LIB = $${FILA_THIRDPARTY_PRJ_MAKE_BLD}/lib
 #FILA_LIB = $${FILA_THIRDPARTY_PKG_BLD}/lib
@@ -125,4 +152,3 @@ nadir_LIBS += \
 -lrt
 } else {
 }
-
