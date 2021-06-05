@@ -21,6 +21,7 @@
 #ifndef _XOS_APP_CONSOLE_NADIR_MAIN_HPP
 #define _XOS_APP_CONSOLE_NADIR_MAIN_HPP
 
+#include "xos/mt/apple/mach/semaphore.hpp"
 #include "xos/console/main/extend.hpp"
 #include "xos/logger/interface.hpp"
 
@@ -51,7 +52,25 @@ private:
 protected:
     virtual int run(int argc, char_t** argv, char_t** env) {
         int err = 0;
-        outlln("hello", NULL);
+        try {
+            mt::apple::mach::semaphore acquired;
+            try {
+                xos::acquire acquire(acquired);
+                outlln("hello", NULL);
+                try {
+                    xos::release release(acquired);
+                } catch (...) {
+                    LOG_ERROR("...catch (...)");
+                    err = 1;
+                }
+            } catch (...) {
+                LOG_ERROR("...catch (...)");
+                err = 1;
+            }
+        } catch (...) {
+            LOG_ERROR("...catch (...)");
+            err = 1;
+        }
         return err;
     }
 }; // class _EXPORT_CLASS main

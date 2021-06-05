@@ -29,7 +29,8 @@ namespace exception {
 typedef int status;
 enum {
     success,
-    failed
+    failed,
+    unexpected
 };
 
 template <class Tstring>
@@ -37,6 +38,7 @@ inline Tstring status_to_stringt(exception::status status) {
     switch (status) {
     case success: return Tstring("success");
     case failed: return Tstring("failed");
+    case unexpected: return Tstring("unexpected");
     }
     return Tstring("unknown");
 }
